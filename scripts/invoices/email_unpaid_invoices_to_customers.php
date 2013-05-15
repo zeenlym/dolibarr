@@ -80,7 +80,7 @@ $sql.= " FROM ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."societe as s";
 if ($targettype == 'contacts') $sql.= ", ".MAIN_DB_PREFIX."socpeople as sp";
 $sql.= " WHERE f.fk_statut != 0 AND f.paye = 0";
 $sql.= " AND f.fk_soc = s.rowid";
-if ($duration_value) $sql.= " AND f.date_lim_reglement < '".$db->idate(dol_time_plus_duree($now, $duration_value, "d"))."'";
+if ($duration_value>=0) $sql.= " AND f.date_lim_reglement < '".$db->idate(dol_time_plus_duree($now, $duration_value, "d"))."'";
 if ($targettype == 'contacts') $sql.= " AND s.rowid = sp.fk_soc";
 $sql.= " ORDER BY";
 if ($targettype == 'contacts') $sql.= " sp.email, sp.rowid,";
