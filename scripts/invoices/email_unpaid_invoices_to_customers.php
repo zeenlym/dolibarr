@@ -68,10 +68,10 @@ $error=0;
 print "***** ".$script_file." (".$version.") *****\n";
 
 $now=dol_now('tzserver');
-$duration_value=$argv[3];
+$duration_value=isset($argv[3])?$argv[3]:-1;
 
 $error = 0;
-print $script_file." launched with mode ".$mode.($duration_value?" delay=".$duration_value:"")."\n";
+print $script_file." launched with mode ".$mode.($duration_value>=0?" delay=".$duration_value:"")."\n";
 
 $sql = "SELECT f.facnumber, f.total_ttc, f.date_lim_reglement as due_date,";
 $sql.= " s.rowid as sid, s.nom as name, s.email, s.default_lang";
