@@ -204,7 +204,7 @@ function envoi_mail($mode,$oldemail,$message,$total,$userlang,$oldtarget)
     global $conf,$langs;
 
     if (getenv('DOL_FORCE_EMAIL_TO')) $oldemail=getenv('DOL_FORCE_EMAIL_TO');
-    
+
     $newlangs=new Translate('',$conf);
     $newlangs->setDefaultLang(empty($userlang)?(empty($conf->global->MAIN_LANG_DEFAULT)?'auto':$conf->global->MAIN_LANG_DEFAULT):$userlang);
     $newlangs->load("main");
@@ -262,6 +262,11 @@ function envoi_mail($mode,$oldemail,$message,$total,$userlang,$oldtarget)
     if ($mode == 'confirm')
     {
     	$result=$mail->sendfile();
+    	if (! $result)
+    	{
+    		print "Error sending email ".$mail->error."\n";
+    		dol_syslog("Error sending email ".$mail->error."\n");
+    	}
     }
     else
     {

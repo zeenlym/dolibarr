@@ -286,6 +286,8 @@ TotalOfTwoDiscountMustEqualsOriginal=La somme du montant des 2 nouvelles réduct
 ConfirmRemoveDiscount=Êtes-vous sûr de vouloir supprimer cette réduction ?
 RelatedBill=Facture associée
 RelatedBills=Factures associées
+ListOfYourUnpaidInvoices=Liste des factures impayées
+NoteListOfYourUnpaidInvoices=Remarque: Cette liste ne contient que les factures des Tiers pour lesquels vous êtes le commercial affecté.
 
 # PaymentConditions
 PaymentConditionShortRECEP=A réception
