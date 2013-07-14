@@ -403,7 +403,6 @@ if ($resql)
 		print '<td align="right"><b>'.price($total_ttc - $total_paid).' '.getCurrencySymbol($conf->currency).'</b></td>';
 		print '<td align="center">&nbsp;</td>';
 		print '<td align="center">&nbsp;</td>';
-		print '<td align="center">&nbsp;</td>';
 		print "</tr>\n";
 	}
 
