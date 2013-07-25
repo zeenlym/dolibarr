@@ -288,7 +288,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 					$curX = $this->posxdesc-1;
 
                     $showpricebeforepagebreak=1;
-                    
+
                     $pdf->startTransaction();
                     pdf_writelinedesc($pdf,$object,$i,$outputlangs,$this->posxcomm-$curX,3,$curX,$curY,$hideref,$hidedesc);
                     $pageposafter=$pdf->getPage();
@@ -320,7 +320,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
                     {
                     	$pdf->commitTransaction();
                     }
-                    
+
 					$nexY = $pdf->GetY();
                     $pageposafter=$pdf->getPage();
 					$pdf->setPage($pageposbefore);
@@ -539,7 +539,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 	{
 		global $conf;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
-	
+
 		$pdf->SetFont('','', $default_font_size);
 		$pdf->SetXY($this->marge_gauche, $posy);
 
@@ -694,10 +694,10 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 		$pdf->SetTextColor(0,0,60);
 
 		$posy+=2;
-		
+
 		// Show list of linked objects
 		$posy = pdf_writeLinkedObjects($pdf, $object, $outputlangs, $posx, $posy, 100, 3, 'R', $default_font_size);
-		
+
 		if ($showaddress)
 		{
 			// Sender properties
@@ -729,7 +729,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 			$pdf->SetXY($posx+2,$posy);
 			$pdf->SetFont('','', $default_font_size - 1);
 			$pdf->MultiCell(80, 4, $carac_emetteur, 0, 'L');
-			
+
 			// Client destinataire
 			$posy=42;
 			$pdf->SetTextColor(0,0,0);
@@ -786,6 +786,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 			$pdf->MultiCell($widthrecbox, 4, $carac_client, 0, 'L');
 		}
 
+		$pdf->SetTextColor(0,0,60);
 	}
 
 	/**
