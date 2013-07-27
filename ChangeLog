@@ -2,7 +2,7 @@
 English Dolibarr ChangeLog
 --------------------------------------------------------------
 
-***** ChangeLog for 3.4 compared to 3.3.* *****
+***** ChangeLog for 3.4 compared to 3.3.* ***** 
 For users:
 - New: Can use ODS templates as document templates.
 - New: Add link to autofill/reset with quantity to ship when creating a
