@@ -2522,10 +2522,16 @@ abstract class CommonObject
 
         $classfile = strtolower($subelement); $classname = ucfirst($subelement);
         if ($objecttype == 'invoice_supplier') {
-            $classfile = 'fournisseur.facture'; $classname='FactureFournisseur';
+            $classfile = 'fournisseur.facture';
+            $classname='FactureFournisseur';
+            $classpath = 'fourn/class';
+            $module='fournisseur';
         }
         if ($objecttype == 'order_supplier')   {
-            $classfile = 'fournisseur.commande'; $classname='CommandeFournisseur';
+            $classfile = 'fournisseur.commande';
+            $classname='CommandeFournisseur';
+            $classpath = 'fourn/class';
+            $module='fournisseur';
         }
 
         if (! empty($conf->$module->enabled))
@@ -3218,5 +3224,17 @@ abstract class CommonObject
 		print '</tr>';
 		print '</table>';
 	}
+
+	function __clone()
+    {
+        // Force a copy of this->lines, otherwise it will point to same object.
+        if (isset($this->lines) && is_array($this->lines))
+        {
+        	for($i=0; $i < count($this->lines); $i++)
+        	{
+            	$this->lines[$i] = dol_clone($this->lines[$i]);
+        	}
+        }
+    }
 }
 ?>
