@@ -219,6 +219,7 @@ class Expedition extends CommonObject
 		$sql.= ", ".(!empty($this->note_public)?"'".$this->db->escape($this->note_public)."'":"null");
 		$sql.= ")";
 
+		dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
 		$resql=$this->db->query($sql);
 		if ($resql)
 		{
@@ -318,6 +319,7 @@ class Expedition extends CommonObject
 		$sql.= ", ".$qty;
 		$sql.= ")";
 
+		dol_syslog(get_class($this)."::create_line sql=".$sql, LOG_DEBUG);
 		if (! $this->db->query($sql))
 		{
 			$error++;

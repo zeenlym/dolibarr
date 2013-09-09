@@ -81,6 +81,8 @@ $object = new Expedition($db);
 if ($action == 'add')
 {
     $error=0;
+    
+    $object = new Expedition($db);
 
     $db->begin();
 
