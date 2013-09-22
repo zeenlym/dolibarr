@@ -432,7 +432,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 
 				// Pied de page
 				$this->_pagefoot($pdf,$object,$outputlangs);
-				$pdf->AliasNbPages();
+				if (method_exists($pdf,'AliasNbPages')) $pdf->AliasNbPages();
 
 				// Check product remaining to be delivered
 				// TODO doit etre modifie
@@ -492,7 +492,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 
 					$this->_pagefoot($pdf,$object,$outputlangs);
 
-					$pdf->AliasNbPages();
+					if (method_exists($pdf,'AliasNbPages')) $pdf->AliasNbPages();
 				}*/
 
 				$pdf->Close();
