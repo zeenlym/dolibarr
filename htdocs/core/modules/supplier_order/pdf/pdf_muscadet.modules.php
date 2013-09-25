@@ -469,9 +469,9 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 					$posy=$this->_tableau_versements($pdf, $object, $posy, $outputlangs);
 				}
 
-				// Pied de page
-				$this->_pagefoot($pdf,$object,$outputlangs);
-				$pdf->AliasNbPages();
+                // Pied de page
+				$this->_pagefoot($pdf, $object, $outputlangs);
+				if (method_exists($pdf,'AliasNbPages')) $pdf->AliasNbPages();
 
 				$pdf->Close();
 
