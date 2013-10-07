@@ -214,7 +214,7 @@ if ($result)
 	if ($month)              $param.='&month='.$month;
 	if ($year)               $param.='&year='.$year;
     if ($search_ref)         $param.='&search_ref=' .$search_ref;
-    if ($search_refcustomer) $param.='&search_ref=' .$search_refcustomer;
+    if ($search_refcustomer) $param.='&search_refcustomer=' .$search_refcustomer;
     if ($search_societe)     $param.='&search_societe=' .$search_societe;
 	if ($search_user > 0)    $param.='&search_user='.$search_user;
 	if ($search_sale > 0)    $param.='&search_sale='.$search_sale;
@@ -253,8 +253,8 @@ if ($result)
 
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans('Ref'),$_SERVER["PHP_SELF"],'p.ref','',$param,'',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans('Company'),$_SERVER["PHP_SELF"],'s.nom','',$param,'',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans('RefCustomer'),$_SERVER["PHP_SELF"],'p.ref_client','',$param,'',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans('Company'),$_SERVER["PHP_SELF"],'s.nom','',$param,'',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans('Date'),$_SERVER["PHP_SELF"],'p.datep','',$param, 'align="center"',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans('DateEndPropalShort'),$_SERVER["PHP_SELF"],'dfv','',$param, 'align="center"',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans('AmountHT'),$_SERVER["PHP_SELF"],'p.total_ht','',$param, 'align="right"',$sortfield,$sortorder);
@@ -265,13 +265,13 @@ if ($result)
 
 	print '<tr class="liste_titre">';
 	print '<td class="liste_titre">';
-	print '<input class="flat" size="10" type="text" name="search_ref" value="'.$search_ref.'">';
+	print '<input class="flat" size="6" type="text" name="search_ref" value="'.$search_ref.'">';
+	print '</td>';
+	print '<td class="liste_titre">';
+	print '<input class="flat" size="6" type="text" name="search_refcustomer" value="'.$search_refcustomer.'">';
 	print '</td>';
 	print '<td class="liste_titre" align="left">';
 	print '<input class="flat" type="text" size="16" name="search_societe" value="'.$search_societe.'">';
-	print '</td>';
-	print '<td class="liste_titre">';
-	print '<input class="flat" size="10" type="text" name="search_refcustomer" value="'.$search_refcustomer.'">';
 	print '</td>';
 	print '<td class="liste_titre" colspan="1" align="center">';
 	print $langs->trans('Month').': <input class="flat" type="text" size="1" maxlength="2" name="month" value="'.$month.'">';
@@ -315,12 +315,20 @@ if ($result)
 		if ($objp->fk_statut == 1 && $db->jdate($objp->dfv) < ($now - $conf->propal->cloture->warning_delay)) print img_warning($langs->trans("Late"));
 		print '</td>';
 
+		// Ref
 		print '<td width="16" align="right" class="nobordernopadding">';
 		$filename=dol_sanitizeFileName($objp->ref);
 		$filedir=$conf->propal->dir_output . '/' . dol_sanitizeFileName($objp->ref);
 		$urlsource=$_SERVER['PHP_SELF'].'?id='.$objp->propalid;
 		print $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 		print '</td></tr></table>';
+
+		print "</td>\n";
+
+		// Customer ref
+		print '<td class="nowrap">';
+		print $objp->ref_client;
+		print '</td>';
 
 		$url = DOL_URL_ROOT.'/comm/fiche.php?socid='.$objp->rowid;
 
@@ -330,11 +338,6 @@ if ($result)
 		$companystatic->client=$objp->client;
 		print '<td>';
 		print $companystatic->getNomUrl(1,'customer');
-		print '</td>';
-
-		// Customer ref
-		print '<td class="nowrap">';
-		print $objp->ref_client;
 		print '</td>';
 
 		// Date propale
