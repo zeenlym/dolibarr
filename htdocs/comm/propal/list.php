@@ -326,6 +326,13 @@ if ($result)
 		print "</td>\n";
 
 		// Customer ref
+		print '<td nowrap="nowrap">';
+		print $objp->ref_client;
+		print '</td>';
+
+		print "</td>\n";
+
+		// Customer ref
 		print '<td class="nowrap">';
 		print $objp->ref_client;
 		print '</td>';

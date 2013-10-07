@@ -182,6 +182,10 @@ if ($search_refcustomer)
 {
 	$sql.= " AND f.ref_client LIKE '%".$db->escape(trim($search_refcustomer))."%'";
 }
+if ($search_refcustomer)
+{
+	$sql.= " AND f.ref_client LIKE '%".$db->escape(trim($search_refcustomer))."%'";
+}
 if ($search_societe)
 {
     $sql.= ' AND s.nom LIKE \'%'.$db->escape(trim($search_societe)).'%\'';
