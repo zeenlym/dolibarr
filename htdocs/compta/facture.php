@@ -2058,24 +2058,6 @@ if ($action == 'create')
 		}
 	}
 
-	// Tiers
-	print '<tr>';
-	print '<td class="fieldrequired">'.$langs->trans('Customer').'</td>';
-	if($soc->id > 0)
-	{
-		print '<td colspan="2">';
-		print $soc->getNomUrl(1);
-		print '<input type="hidden" name="socid" value="'.$soc->id.'">';
-		print '</td>';
-	}
-	else
-	{
-		print '<td colspan="2">';
-		print $form->select_company('','socid','s.client = 1 OR s.client = 3',1);
-		print '</td>';
-	}
-	print '</tr>'."\n";
-
 	// Type de facture
 	$facids=$facturestatic->list_replacable_invoices($soc->id);
 	if ($facids < 0)
