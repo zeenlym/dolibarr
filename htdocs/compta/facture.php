@@ -991,7 +991,7 @@ if (empty($reshook)) {
 											$lines [$i]->fetch_optionals($lines [$i]->rowid);
 											$array_option = $lines [$i]->array_options;
 										}
-										
+
 										// View third's localtaxes for now
 										$localtax1_tx = get_localtax($lines[$i]->tva_tx, 1, $object->client);
 										$localtax2_tx = get_localtax($lines[$i]->tva_tx, 2, $object->client);
@@ -1498,7 +1498,7 @@ if (empty($reshook)) {
 		$object->fetch_thirdparty();
 		$result = $object->add_object_linked('commande', GETPOST('linkedOrder'));
 	}
-		
+
 	/*
 	 * Add file in email form
 	 */
@@ -1571,8 +1571,18 @@ if (empty($reshook)) {
 				$from = $_POST['fromname'] . ' <' . $_POST['frommail'] . '>';
 				$replyto = $_POST['replytoname'] . ' <' . $_POST['replytomail'] . '>';
 				$message = $_POST['message'];
-				$sendtocc = $_POST['sendtocc'];
+
+				$sendtocc = $_POST ['sendtocc'];
 				$sendtobcc = (empty($conf->global->MAIN_MAIL_AUTOCOPY_INVOICE_TO)?'':$conf->global->MAIN_MAIL_AUTOCOPY_INVOICE_TO);
+
+				$receivercc = GETPOST('receivercc');
+				if($_POST ['sendtocc']!=='') {
+					$sendtocc = $_POST ['sendtocc']  ;
+				}
+				elseif($receivercc!=-1) {
+					$sendtocc = $object->client->contact_get_property($receivercc, 'email');
+				}
+
 				$deliveryreceipt = $_POST['deliveryreceipt'];
 
 				if ($action == 'send') {
@@ -1892,7 +1902,7 @@ if ($action == 'create')
 			$projectid = (! empty($objectsrc->fk_project) ? $objectsrc->fk_project : '');
 			$ref_client = (! empty($objectsrc->ref_client) ? $objectsrc->ref_client : '');
 			$ref_int = (! empty($objectsrc->ref_int) ? $objectsrc->ref_int : '');
-	
+
 			// only if socid not filled else it's allready done upper
 			if (empty($socid))
 				$soc = $objectsrc->thirdparty;

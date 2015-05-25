@@ -436,6 +436,15 @@ if (empty($reshook)) {
 				$message = $_POST ['message'];
 				$sendtocc = $_POST ['sendtocc'];
 				$sendtobcc = (empty($conf->global->MAIN_MAIL_AUTOCOPY_PROPOSAL_TO)?'':$conf->global->MAIN_MAIL_AUTOCOPY_PROPOSAL_TO);
+
+				$receivercc = GETPOST('receivercc');
+				if($_POST ['sendtocc']!=='') {
+					$sendtocc = $_POST ['sendtocc']  ;
+				}
+				elseif($receivercc!=-1) {
+					$sendtocc = $object->client->contact_get_property($receivercc, 'email');
+				}
+
 				$deliveryreceipt = $_POST ['deliveryreceipt'];
 
 				if (dol_strlen($_POST ['subject']))
