@@ -35,6 +35,8 @@ $contactid = isset($_GET["id"])?$_GET["id"]:'';
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'contact', $contactid, 'socpeople&societe');
 
+$contact = new Contact($db);
+
 
 
 /*
@@ -43,23 +45,24 @@ $result = restrictedArea($user, 'contact', $contactid, 'socpeople&societe');
 
 llxHeader('',$langs->trans("ContactsAddresses"),'EN:Module_Third_Parties|FR:Module_Tiers|ES:M&oacute;dulo_Empresas');
 
+if ($contactid > 0)
+{
+	$result = $contact->fetch($contactid, $user);
 
-$contact = new Contact($db);
-$contact->fetch($_GET["id"], $user);
-$contact->info($_GET["id"]);
+	$contact->info($contactid);
+
+	$head = contact_prepare_head($contact);
+
+	dol_fiche_head($head, 'info', $langs->trans("ContactsAddresses"), 0, 'contact');
 
 
-$head = contact_prepare_head($contact);
+	print '<table width="100%"><tr><td>';
+	print '</td></tr></table>';
 
-dol_fiche_head($head, 'info', $langs->trans("ContactsAddresses"), 0, 'contact');
+	dol_print_object_info($contact);
 
-
-print '<table width="100%"><tr><td>';
-print '</td></tr></table>';
-
-dol_print_object_info($contact);
-
-print "</div>";
+	print "</div>";
+}
 
 llxFooter();
 

@@ -470,6 +470,51 @@ $hookmanager->initHooks(array('externalbalance'));
 $reshook=$hookmanager->executeHooks('addStatisticLine',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
 
 /*
+ * Salaries
+ */
+
+if ($modecompta == 'CREANCES-DETTES') {
+	$column = 'p.datev';
+} else {
+	$column = 'p.datep';
+}
+
+$subtotal_ht = 0;
+$subtotal_ttc = 0;
+$sql = "SELECT p.label as nom, date_format($column,'%Y-%m') as dm, sum(p.amount) as amount";
+$sql.= " FROM ".MAIN_DB_PREFIX."payment_salary as p";
+$sql.= " WHERE p.entity = ".$conf->entity;
+$sql.= " GROUP BY p.label, dm";
+
+dol_syslog("get social salaries payments  sql=".$sql);
+$result=$db->query($sql);
+if ($result)
+{
+	$num = $db->num_rows($result);
+	$var=false;
+	$i = 0;
+	if ($num)
+	{
+		while ($i < $num)
+		{
+			$obj = $db->fetch_object($result);
+
+			if (! isset($decaiss[$obj->dm])) $decaiss[$obj->dm]=0;
+			$decaiss[$obj->dm] += $obj->amount;
+
+			if (! isset($decaiss_ttc[$obj->dm])) $decaiss_ttc[$obj->dm]=0;
+			$decaiss_ttc[$obj->dm] += $obj->amount;
+
+			$i++;
+		}
+	}
+}
+else
+{
+	dol_print_error($db);
+}
+
+/*
  * Show result array
  */
 
