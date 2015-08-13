@@ -607,7 +607,7 @@ class Expedition extends CommonObject
 					// We use warehouse selected for each line
 					$result=$mouvS->livraison($user, $obj->fk_product, $obj->fk_entrepot, $obj->qty, $obj->subprice, $langs->trans("ShipmentValidatedInDolibarr",$numref));
 					if ($result < 0) { $error++; break; }
-					
+
 					if (! empty($conf->productbatch->enabled)) {
 						$details=ExpeditionLigneBatch::FetchAll($this->db,$obj->rowid);
 						foreach ($details as $dbatch) {
@@ -734,25 +734,25 @@ class Expedition extends CommonObject
 	function addline($entrepot_id, $id, $qty)
 	{
 		global $conf, $langs;
-		
+
 		$num = count($this->lines);
 		$line = new ExpeditionLigne($this->db);
 
 		$line->entrepot_id = $entrepot_id;
 		$line->origin_line_id = $id;
 		$line->qty = $qty;
-		
+
 		if($conf->global->STOCK_MUST_BE_ENOUGH_FOR_SHIPMENT) {
 			$orderline = new OrderLine($this->db);
 			$orderline->fetch($id);
 			$fk_product = $orderline->fk_product;
-			
+
 			if (!empty($orderline->fk_product))
 			{
 				$product=new Product($this->db);
 				$result=$product->fetch($fk_product);
 				$product_type=$product->type;
-				
+
 				if($product_type == 0 && $product->stock_reel < $qty) {
 					$this->error=$langs->trans('ErrorStockIsNotEnough');
 					$this->db->rollback();
@@ -926,7 +926,7 @@ class Expedition extends CommonObject
 		$this->db->begin();
 
 		if ($conf->productbatch->enabled) {
-			if ( ExpeditionLigneBatch::deletefromexp($this->db,$this->id)<0) 
+			if ( ExpeditionLigneBatch::deletefromexp($this->db,$this->id)<0)
 			{$error++;$this->errors[]="Error ".$this->db->lasterror();}
 		}
 		// Stock control
@@ -1103,6 +1103,10 @@ class Expedition extends CommonObject
 				$line = new ExpeditionLigne($this->db);
 				$obj = $this->db->fetch_object($resql);
 
+                $line->line_id          = $obj->line_id;
+                $line->rowid            = $obj->line_id;    // TODO deprecated
+                $line->id               = $obj->line_id;
+
 				$line->fk_origin_line 	= $obj->fk_origin_line;
 				$line->origin_line_id 	= $obj->fk_origin_line;	    // TODO deprecated
 				$line->entrepot_id    	= $obj->fk_entrepot;
@@ -1150,7 +1154,7 @@ class Expedition extends CommonObject
 				// Eat-by date
 				if (! empty($conf->productbatch->enabled)) {
                     /* test on conf at begining of file sometimes doesn't include expeditionbatch
-                     * May be conf is not well initialized for dark reason 
+                     * May be conf is not well initialized for dark reason
                      */
                     require_once DOL_DOCUMENT_ROOT.'/expedition/class/expeditionbatch.class.php';
 					$line->detail_batch=ExpeditionLigneBatch::FetchAll($this->db,$obj->line_id);
