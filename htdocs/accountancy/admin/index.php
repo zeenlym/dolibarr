@@ -1,7 +1,7 @@
 <?php
 /* Copyright (C) 2013-2014 Olivier Geffroy		<jeff@jeffinfo.com>
  * Copyright (C) 2013-2014 Florian Henry		<florian.henry@open-concept.pro>
- * Copyright (C) 2013-2015 Alexandre Spangaro	<aspangaro.dolibarr@gmail.com>
+ * Copyright (C) 2013-2016 Alexandre Spangaro	<aspangaro.dolibarr@gmail.com>
  * Copyright (C) 2014-2015 Ari Elbaz (elarifr)	<github@accedinfo.com>
  * Copyright (C) 2014      Marcos García        <marcosgdf@gmail.com>
  * Copyright (C) 2014	   Juanjo Menent		<jmenent@2byte.es>
@@ -51,8 +51,9 @@ $list = array (
 		'ACCOUNTING_LENGTH_DESCRIPTION_ACCOUNT', // adjust size displayed for select account description for dol_trunc
 		'ACCOUNTING_LENGTH_GACCOUNT',
 		'ACCOUNTING_LENGTH_AACCOUNT',
-		'ACCOUNTING_ACCOUNT_CUSTOMER',
 		'ACCOUNTING_ACCOUNT_SUPPLIER',
+		'ACCOUNTING_ACCOUNT_CUSTOMER',
+		'SALARIES_ACCOUNTING_ACCOUNT_PAYMENT',
 		'ACCOUNTING_PRODUCT_BUY_ACCOUNT',
 		'ACCOUNTING_PRODUCT_SOLD_ACCOUNT',
 		'ACCOUNTING_SERVICE_BUY_ACCOUNT',
