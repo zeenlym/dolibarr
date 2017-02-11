@@ -68,7 +68,7 @@ if ($id > 0 || ! empty($ref))
 
 // Security check
 $socid=GETPOST('socid');
-if ($user->societe_id > 0) $socid=$user->societe_id;
+//if ($user->societe_id > 0) $socid = $user->societe_id;    // For external user, no check is done on company because readability is managed by public status of project and assignement.
 $result = restrictedArea($user, 'projet', $object->id,'projet&project');
 
 // fetch optionals attributes and labels
@@ -785,6 +785,7 @@ else
         // Date end
         print '<tr><td>'.$langs->trans("DateEnd").'</td><td>';
         print dol_print_date($object->date_end,'day');
+        if ($object->hasDelay()) print img_warning($langs->trans('Late'));
         print '</td></tr>';
 
     	if (! empty($conf->global->PROJECT_USE_OPPORTUNITIES))
@@ -851,7 +852,7 @@ else
                 /* Change percent of default percent of new status is higher */
                 if (parseFloat(jQuery("#opp_percent").val()) != parseFloat(defaultpercent))
                 {
-                    if (jQuery("#opp_percent").val() != \'\' && ! jQuery("#oldopppercent").text()) jQuery("#oldopppercent").text(\' - '.dol_escape_js($langs->trans("PreviousValue")).': \'+jQuery("#opp_percent").val()+\' %\');
+                    if (jQuery("#opp_percent").val() != \'\' && ! jQuery("#oldopppercent").text()) jQuery("#oldopppercent").text(\' - '.dol_escape_js($langs->transnoentities("PreviousValue")).': \'+jQuery("#opp_percent").val()+\' %\');
                     jQuery("#opp_percent").val(defaultpercent);
                     
                 }

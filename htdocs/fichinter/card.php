@@ -583,7 +583,7 @@ if (empty($reshook))
 		}
 	}
 
-	// Classify Billed
+	// Classify unbilled
 	else if ($action == 'classifyunbilled' && $user->rights->ficheinter->creer)
 	{
 		$result=$object->setStatut(1);
@@ -598,6 +598,21 @@ if (empty($reshook))
 		}
 	}
 
+	// Classify Done
+	else if ($action == 'classifydone' && $user->rights->ficheinter->creer)
+	{
+	    $result=$object->setStatut(3);
+	    if ($result > 0)
+	    {
+	        header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id);
+	        exit;
+	    }
+	    else
+	    {
+	        setEventMessages($object->error, $object->errors, 'errors');
+	    }
+	}
+	
 	/*
 	 *  Mise a jour d'une ligne d'intervention
 	 */
@@ -918,6 +933,7 @@ if ($action == 'create')
 
 	if ($socid > 0)
 	{
+		$soc=new Societe($db);
 		$soc->fetch($socid);
 
 		print '<form name="fichinter" action="'.$_SERVER['PHP_SELF'].'" method="POST">';
@@ -1632,6 +1648,12 @@ else if ($id > 0 || ! empty($ref))
 							print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=classifyunbilled">'.$langs->trans("InterventionClassifyUnBilled").'</a></div>';
 						}
 					}
+				}
+
+				// Done
+				if (empty($conf->global->FICHINTER_CLASSIFY_BILLED) && $object->statut > 0 && $object->statut < 3)
+				{
+				    print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=classifydone">'.$langs->trans("InterventionClassifyDone").'</a></div>';
 				}
 
 				// Clone
