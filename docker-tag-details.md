@@ -1,3 +1,17 @@
+# zeenlym/dolibarr:4.0-3
+
+Main :
+ - dolibarr : 4.0.2 (899a6d0f7184089657495a0501b5260b1ba46fc8)
+
+Modules :
+ - cabinetmed : v4.0-1
+ - customfields : 4.0.2
+ - cabinetmedex : v1.0
+
+Changes:
+ - cabinetmed v4.0-1
+   - removing consults paiment
+
 # zeenlym/dolibarr:4.0-2
 
 Main :
