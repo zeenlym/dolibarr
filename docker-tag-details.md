@@ -1,3 +1,17 @@
+# zeenlym/dolibarr:4.0.4-1
+
+Main :
+ - dolibarr : 4.0.4 (a24b5b7e53588415cf569c5ce468447b33ab5cb8)
+
+Modules :
+ - cabinetmed : v4.0-1
+ - customfields : 4.0.2
+ - cabinetmedex : v1.0
+ - advaccountancy : v1.0
+
+Changes:
+ - dolibar 4.0.4
+
 # zeenlym/dolibarr:4.0-4
 
 Main :
